@@ -1,0 +1,7 @@
+path
+raw_data
+produced_data
+analysis
+misc
+plots
+rmd
