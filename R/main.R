@@ -3,10 +3,6 @@ load_project_dir_skeleton <- function() {
   read.csv(path, stringsAsFactors = FALSE, header = FALSE)
 }
 
-# rproj_file_exists <- function(proj_root_dir) {
-#   length(list.files(proj_root_dir, pattern = "*.Rproj")) > 0
-# }
-
 create_util <- function(proj_root) {
   file.create(file.path(proj_root, "util.R"))
 }
@@ -48,4 +44,20 @@ install_useful_packages <- function() {
     install.packages(packages, repos = "https://cran.rstudio.com/")
   }
 
+}
+
+#' @export
+install_plant_breeding_packages <- function() {
+  installed_pkgs <- installed.packages()
+  installed_pkgs <- unlist(installed_pkgs[,1], use.names = FALSE)
+
+  packages <- c("BGLR", "agricolae", "rrBLUP", "AGHmatrix")
+
+  install_list <- vapply(packages, function(pkg) !pkg %in% installed_pkgs, FUN.VALUE = logical(1L))
+
+  packages <- packages[install_list]
+
+  if(length(packages) > 0) {
+    install.packages(packages, repos = "https://cran.rstudio.com/")
+  }
 }
